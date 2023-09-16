@@ -4,7 +4,20 @@ async function main() {
     //     popup: "./index.html",
     // });
     console.log(window.location.href);
+    const grilledCheeseLoader = document.createElement("div");
+    grilledCheeseLoader.innerHTML =
+        '<iframe src="https://giphy.com/embed/RSGPJWYgaxxgz3Zg7Q" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>Generating credibility check...</p>';
 
+    grilledCheeseLoader.style = `
+        position: sticky; 
+        top: 0;
+        z-index: 10000;
+        background: white;
+    `;
+
+    // document.body.appendChild(grilledCheeseLoader);
+    console.log(grilledCheeseLoader);
+    document.body.insertBefore(grilledCheeseLoader, document.body.firstChild);
     // const CSS = `
     // .credibly_item {
     //     position: sticky;
@@ -59,6 +72,7 @@ async function main() {
     `;
 
     // information.textContent = "Hello world";
+    grilledCheeseLoader.remove();
     document.body.appendChild(information);
     document.body.insertBefore(information, document.body.firstChild);
 
