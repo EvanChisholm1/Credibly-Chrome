@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "credibly",
+    "version": "1.0",
+
+    "content_scripts": [
+        {
+            "matches": ["*://*/*"],
+            "js": ["index.js"]
+        }
+    ]
+}
