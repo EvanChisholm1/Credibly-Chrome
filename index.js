@@ -21,12 +21,14 @@ async function main() {
         border:none;
         cursor: pointer;
             position: fixed;
-            top: 30px;
-            left: 275px;
+            top: 50px;
+            left: 310px;
             background-color: transparent;
             padding:none;
             margin:none;
-            font-family: 'Times New Roman', sans-serif;          
+            font-family: 'Trebuchet MS', sans-serif;
+            color: white;
+            font-size: 30px;
         `;
     informationPopUp.append(closeButton);
     informationPopUp.style = `
@@ -46,6 +48,7 @@ height: 500px;
     text.style = `
 font-family: 'Trebuchet MS', sans-serif;
 color: white;
+font-size: 15px;
 display: block;
 width: 240px;
 height: 240px;
@@ -55,6 +58,7 @@ overflow-y: auto;
 overflow-x: hidden;
 position: fixed;
 `;
+
 
     document.body.insertBefore(informationPopUp, document.body.firstChild);
 
@@ -99,17 +103,17 @@ position: fixed;
     console.log(json);
 
     // Update the popup content with fetched data
-    const factualness = document.createElement("p");
-    factualness.textContent = `Factualness: ${json.factualness}`;
+    const factualness = document.createElement("span");
+    factualness.innerHTML = `<h2>Factualness: </h2>${json.factualness}`;
 
-    const textbias = document.createElement("p");
-    textbias.textContent = `Bias: ${json.textBias}`;
-
+    const textbias = document.createElement("span");
+    textbias.innerHTML = `<h2>Bias: </h2>${json.textBias}`;
     text.removeChild(loadingText);
     text.appendChild(factualness);
     text.appendChild(textbias);
 
     console.log("----END OF FROM CREDIBLY----");
+    document.querySelectorAll("h2").forEach(p => p.style = "font-family: 'Trebuchet MS', sans-serif;color: white;font-size: 30px;display:block;text-decoration:bold;");
 
     //informationPopUp.appendChild(closeButton);
 
