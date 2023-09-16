@@ -13,6 +13,13 @@ async function main() {
         top: 0;
         z-index: 10000;
         background: white;
+        width: 300px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow:scroll; 
+  height:400px;
     `;
 
     // document.body.appendChild(grilledCheeseLoader);
@@ -30,12 +37,9 @@ async function main() {
     const CSS = `.credibly_item {
     position: sticky;
     top: 0;
-    left: 0;
+    right: 0;
     z-index: 10000;
-    padding: 20px;
     background: purple;
-    margin: 20px;
-    display: block;
 }`;
 
     const cssItem = document.createElement("style");
@@ -69,6 +73,15 @@ async function main() {
         top: 0;
         z-index: 10000;
         background: white;
+        margin: 20px;
+        width: 300px;
+    display: block;
+      padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow:scroll; 
+  height:400px;
     `;
 
     // information.textContent = "Hello world";
