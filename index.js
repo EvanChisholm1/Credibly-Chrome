@@ -1,5 +1,16 @@
 async function main() {
     console.log("----START OF FROM CREDIBLY----");
+    const isNewsRes = await fetch(`http://localhost:8080/is-news?url=${window.location.href}`);
+
+    if (!isNewsRes.ok) {
+        throw new Error(`Failed to fetch data (HTTP ${isNewsRes.status})`);
+    }
+
+    const isNewsJSON = await isNewsRes.json();
+    console.log("printing is news", isNewsJSON);
+     if(isNewsJSON.isNews){
+
+    
     // chrome.browserAction.setPopup({
     //     popup: "./index.html",
     // });
@@ -28,14 +39,14 @@ width:200px;
 height:75px;
 top: 20px;
 left:100px;
-position: fixed;
+position: relative;
 `;
 
     closeButton.style = `
         border:none;
         cursor: pointer;
-            position: fixed;
-            top: 40px;
+            position: relative;
+            top: -30px;
             left: 315px;
             background-color: transparent;
             padding:none;
@@ -67,7 +78,7 @@ display: block;
 width: 240px;
 height: 240px;
 z-index: 10000;
-margin-top: 110px;
+margin-top: 40px;
 margin-left: 100px;
 overflow-y: auto;
 overflow-x: hidden;
@@ -77,6 +88,43 @@ position: fixed;
 
     document.body.insertBefore(informationPopUp, document.body.firstChild);
 
+    const fixedElements = {logo, text, closeButton};
+    
+    let offsetX, offsetY, isDragging = false;
+    
+    // Add mousedown event listener to start dragging
+    informationPopUp.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - informationPopUp.getBoundingClientRect().left;
+        offsetY = e.clientY - informationPopUp.getBoundingClientRect().top;
+        informationPopUp.style.cursor = "grabbing";
+    });
+    
+    // Add mousemove event listener for dragging
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+    
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+    
+        // Update the draggable div's position
+        informationPopUp.style.left = `${x}px`;
+        informationPopUp.style.top = `${y}px`;
+    
+        // Update the fixed-position elements' positions
+        fixedElements.forEach((fixedElement) => {
+            const fixedOffsetX = x - informationPopUp.getBoundingClientRect().left;
+            const fixedOffsetY = y - informationPopUp.getBoundingClientRect().top;
+            fixedElement.style.left = `${fixedOffsetX}px`;
+            fixedElement.style.top = `${fixedOffsetY}px`;
+        });
+    });
+    
+    // Add mouseup event listener to stop dragging
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        informationPopUp.style.cursor = "grab";
+    });
     /* grilledCheeseLoader.style = `
      top: 0;
      z-index: 10000;
@@ -119,13 +167,22 @@ position: fixed;
 
     // Update the popup content with fetched data
     const factualness = document.createElement("span");
-    factualness.innerHTML = `<h2>Factualness: </h2>${json.factualness}`;
+    factualness.innerHTML = `<h2>Credibility: </h2>${json.factualness}`;
+
+    const crossReference = document.createElement("span");
+    crossReference.innerHTML = `<h2>Cross Reference: </h2>${json.crossRef}`;
 
     const textbias = document.createElement("span");
     textbias.innerHTML = `<h2>Bias: </h2>${json.textBias}`;
+
+    const clickbaitness = document.createElement("span");
+    clickbaitness.innerHTML = `<h2>Clickbait: </h2>${json.clickbaitAnalysis}`;
+
     text.removeChild(loadingText);
     text.appendChild(factualness);
+    text.appendChild(crossReference);
     text.appendChild(textbias);
+    text.appendChild(clickbaitness);
 
     console.log("----END OF FROM CREDIBLY----");
     document.querySelectorAll("h2").forEach(p => p.style = "font-family: 'Trebuchet MS', sans-serif;color: white;font-size: 30px;display:block;text-decoration:bold;");
@@ -141,5 +198,5 @@ position: fixed;
 
     console.log("----END OF FROM CREDIBLY----");
 }
-
+}
 main();
