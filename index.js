@@ -4,12 +4,17 @@ async function main() {
     //     popup: "./index.html",
     // });
     console.log(window.location.href);
+     const closeButton = document.createElement("button");
+    closeButton.textContent = "x";
+    closeButton.addEventListener("click", () => {
+        information.remove();
+    });
     const grilledCheeseLoader = document.createElement("div");
     grilledCheeseLoader.innerHTML =
         '<iframe src="https://giphy.com/embed/RSGPJWYgaxxgz3Zg7Q" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p>Generating credibility check...</p>';
+    grilledCheeseLoader.append(closeButton);
 
     grilledCheeseLoader.style = `
-        position: sticky; 
         top: 0;
         z-index: 10000;
         background: white;
@@ -18,10 +23,11 @@ async function main() {
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow:scroll; 
+  overflow-y:auto; 
+    overflow-x:hidden;
   height:400px;
+  position: fixed;
     `;
-
     // document.body.appendChild(grilledCheeseLoader);
     console.log(grilledCheeseLoader);
     document.body.insertBefore(grilledCheeseLoader, document.body.firstChild);
@@ -35,7 +41,7 @@ async function main() {
     // }
     // `;
     const CSS = `.credibly_item {
-    position: sticky;
+    position: fixed;
     top: 0;
     right: 0;
     z-index: 10000;
@@ -61,15 +67,20 @@ async function main() {
     information.appendChild(factualness);
     information.appendChild(textbias);
 
-    const closeButton = document.createElement("button");
-    closeButton.textContent = "close";
-    closeButton.addEventListener("click", () => {
-        information.remove();
-    });
+   
     information.appendChild(closeButton);
 
+    closeButton.style = `
+    border:none;
+    cursor: pointer;
+        position: fixed;
+        top: 30px;
+        left: 270px;
+    `
+
+
     information.style = `
-        position: sticky; 
+        position: fixed; 
         top: 0;
         z-index: 10000;
         background: white;
@@ -77,10 +88,12 @@ async function main() {
         width: 300px;
     display: block;
       padding: 20px;
+      padding-right:30px;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  overflow:scroll; 
+  overflow-y:auto; 
+  overflow-x:hidden;
   height:400px;
     `;
 
